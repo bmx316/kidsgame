@@ -1,0 +1,153 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+  <style>
+      /* apply a natural box layout model to all elements */
+      * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+      body {margin: 0;}
+
+      .cartoons, .control-panel, .cartoon-ordering{width: 840px; margin: 0 auto;}
+      .cartoon-ordering {padding: 20px 0;}
+      #start-over {height: 50px; width: 100px; background-color: purple; color: white;}
+      .large-text {font-size: 70px; font-weight: bold;}
+      
+      .draggable {width: 200px; height: 200px;float: left; margin: 0;}
+      #draggable {margin-bottom:20px; cursor: move;}
+
+      #containment-wrapper {width: 804px; height:404px; margin: 0 auto; border:2px solid #ccc; cursor: move;}
+      
+      div.box1 {background: red; width: 200px; height: 200px;}
+      /*owl*/
+      div.box2 {background: green; width: 200px; height: 200px;}
+      /*duck*/
+      div.box3 {background: blue; width: 200px; height: 200px;}
+      /*bear*/
+      div.box4 {background: yellow; width: 200px; height: 200px;}
+      /*mario*/
+      div.box4 {background: purple; width: 200px; height: 200px;}
+      /*orange*/
+      div.box5 {background: orange; width: 200px; height: 200px;}
+      /*pink*/
+      div.box6 {background: #FF00FF; width: 200px; height: 200px;}
+  </style>
+  <script>
+
+
+//BUTTON FOR RANDOMIZE
+$(function() {
+
+  $('button').click(function() {
+    $("div.rand-main").randomize("div.rand-member");
+  });
+
+});
+
+//RANDOMIZE FUNCTION
+(function($) {
+
+$.fn.randomize = function(childElem) {
+  return this.each(function() {
+      var $this = $(this);
+      var elems = $this.children(childElem);
+
+      elems.sort(function() { return (Math.round(Math.random())-0.5); });  
+
+      $this.remove(childElem);  
+
+      for(var i=0; i < elems.length; i++)
+        $this.append(elems[i]);      
+
+  });    
+}
+})(jQuery);
+
+//DRAGGABLE FUNCTION
+  $(function() {
+    $( "#draggable1" ).draggable({ snap: true, cursor: "move", containment: "#containment-wrapper", scroll: false })
+    $( "#draggable2" ).draggable({ snap: true, cursor: "move", containment: "#containment-wrapper", scroll: false })
+    $( "#draggable3" ).draggable({ snap: true, cursor: "move", containment: "#containment-wrapper", scroll: false })
+    $( "#draggable4" ).draggable({ snap: true, cursor: "move", containment: "#containment-wrapper", scroll: false })
+    $( "#draggable5" ).draggable({ snap: true, cursor: "move", containment: "#containment-wrapper", scroll: false })
+    $( "#draggable6" ).draggable({ snap: true, cursor: "move", containment: "#containment-wrapper", scroll: false })
+
+//USED TO SHOW INDEX OF EACH ITEM
+    var draggable1 = $('#draggable1');
+    var cartoon1 = $('#cartoon-1');
+    var draggable2 = $('#draggable2');
+    var cartoon2 = $('#cartoon-2');
+
+    var draggable3 = $('#draggable3');
+    var cartoon3 = $('#cartoon-3');
+    var draggable4 = $('#draggable4');
+    var cartoon4 = $('#cartoon-4');
+
+    $('.cartoon-order1').text( 'Owl Draggable has index of: ' + $('div').index(draggable1) + ' - Owl Picture has index of: ' + $('div').index(cartoon1) );
+
+    $('.cartoon-order2').text( 'Duck Draggable has index of: ' + $('div').index(draggable2) + ' - Duck Picture has index of: ' + $('div').index(cartoon2) );
+
+    $('.cartoon-order3').text( 'Bear Draggable has index of: ' + $('div').index(draggable3) + ' - Bear Picture has index of: ' + $('div').index(cartoon3) );
+
+    $('.cartoon-order4').text( 'Mario Draggable has index of: ' + $('div').index(draggable4) + ' - Mario Picture has index of: ' + $('div').index(cartoon4) );
+
+
+  });
+  </script>
+</head>
+<body>
+
+<div class="control-panel"><button id="start-over">Start Over</button></div>
+
+<div class="cartoons rand-main">
+
+<!-- owl -->
+  <div id="cartoon-1" class="rand-member" style="text-align: center; display: inline-block;"><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRz6N0OPuuud6W0SSnL9ItGL2eGTW8SAw5NmpQG-s9C_rGWuDXq" alt=""></div>
+<!-- duck -->
+  <div id="cartoon-2" class="rand-member" style="text-align: center; display: inline-block;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRymEpICIrjq8MrCdGYtw8thkHvSObvPDzPdxvqCNJ43skbnid8" alt=""></div>
+<!-- bear -->
+  <div id="cartoon-3" class="rand-member" style="text-align: center; display: inline-block;"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT1BkB-8E32guW9zUSkXp-hKxJLOj-lInQO9KXW3oCG_ryofgYD" alt=""></div>
+<!-- mario -->
+  <div id="cartoon-4" class="rand-member" style="text-align: center; display: inline-block;"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTPAKIoRNQa3drynzILqJATO1GmOIyAcGSM644fR6wuVJBc55WOOA" alt=""></div>
+
+
+</div>
+
+<!-- DISPLAY ORDER OF ELEMENTS -->
+<div class="cartoon-ordering">
+  <div class="cartoon-order1"><span class="cartoon-number1"></span></div>
+  <div class="cartoon-order2"><span class="cartoon-number2"></span></div>
+  <div class="cartoon-order3"><span class="cartoon-number3"></span></div>
+  <div class="cartoon-order4"><span class="cartoon-number4"></span></div>
+</div>
+
+<div id="containment-wrapper" class="rand-main">
+  <div id="draggable1" class="draggable ui-widget-content rand-member">
+    <div class="box1"><span class="large-text">Owl</span></div>
+  </div>
+  <div id="draggable2" class="draggable ui-widget-content rand-member">
+    <div class="box2"><span class="large-text">Duck</span></div>
+  </div>
+  <div id="draggable3" class="draggable ui-widget-content rand-member">
+    <div class="box3"><span class="large-text">Bear</span></div>
+  </div>
+  <div id="draggable4" class="draggable ui-widget-content rand-member">
+    <div class="box4"><span class="large-text">Mario</span></div>    
+  </div>
+  <div id="draggable5" class="draggable ui-widget-content rand-member">
+    <div class="box5"></div>    
+  </div>
+  <div id="draggable6" class="draggable ui-widget-content rand-member">
+    <div class="box6"></div>    
+  </div>
+</div>
+ 
+ 
+</body>
+</html>
